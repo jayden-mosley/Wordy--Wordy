@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Word Vault</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f2f2f2;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .game-container {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+    }
+    .question {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .choices button {
+      display: block;
+      width: 100%;
+      padding: 0.75rem;
+      margin: 0.5rem 0;
+      font-size: 1rem;
+      border: none;
+      border-radius: 10px;
+      background-color: #ececec;
+      transition: background-color 0.2s;
+      cursor: pointer;
+    }
+    .choices button:hover {
+      background-color: #dcdcdc;
+    }
+    .score {
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="game-container">
+    <div class="question" id="question">Loading...</div>
+    <div class="choices" id="choices"></div>
+    <div class="score" id="score">Score: 0</div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        definition: "A word meaning excessively talkative, especially on trivial matters.",
+        answer: "Garrulous",
+        choices: ["Taciturn", "Garrulous", "Laconic", "Reticent"]
+      },
+      {
+        definition: "A word meaning an expert in matters of taste or fine things.",
+        answer: "Connoisseur",
+        choices: ["Amateur", "Connoisseur", "Dilettante", "Novice"]
+      },
+      {
+        definition: "A word meaning impossible to stop or prevent.",
+        answer: "Inexorable",
+        choices: ["Fleeting", "Inevitable", "Inexorable", "Evasive"]
+      }
+    ];
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+
+    function loadQuestion() {
+      const q = questions[currentQuestionIndex];
+      document.getElementById('question').textContent = q.definition;
+      const choicesDiv = document.getElementById('choices');
+      choicesDiv.innerHTML = '';
+
+      q.choices.forEach(choice => {
+        const btn = document.createElement('button');
+        btn.textContent = choice;
+        btn.onclick = () => selectAnswer(choice);
+        choicesDiv.appendChild(btn);
+      });
+    }
+
+    function selectAnswer(choice) {
+      const correct = questions[currentQuestionIndex].answer;
+      if (choice === correct) score++;
+
+      currentQuestionIndex++;
+      if (currentQuestionIndex < questions.length) {
+        loadQuestion();
+      } else {
+        document.getElementById('question').textContent = "Game Over!";
+        document.getElementById('choices').innerHTML = '';
+      }
+      document.getElementById('score').textContent = `Score: ${score}`;
+    }
+
+    loadQuestion();
+  </script>
+</body>
+</html>
