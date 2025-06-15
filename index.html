@@ -25,8 +25,9 @@
       text-align: center;
     }
     .question {
-      font-size: 1.2rem;
+      font-size: 1.4rem;
       margin-bottom: 1rem;
+      font-weight: bold;
     }
     .choices button {
       display: block;
@@ -59,19 +60,34 @@
   <script>
     const questions = [
       {
-        definition: "A word meaning excessively talkative, especially on trivial matters.",
-        answer: "Garrulous",
-        choices: ["Taciturn", "Garrulous", "Laconic", "Reticent"]
+        word: "Garrulous",
+        correctDefinition: "Excessively talkative, especially on trivial matters.",
+        choices: [
+          "Reserved and quiet in nature.",
+          "Excessively talkative, especially on trivial matters.",
+          "Showing deep thought and insight.",
+          "Brief and to the point."
+        ]
       },
       {
-        definition: "A word meaning an expert in matters of taste or fine things.",
-        answer: "Connoisseur",
-        choices: ["Amateur", "Connoisseur", "Dilettante", "Novice"]
+        word: "Connoisseur",
+        correctDefinition: "An expert in matters of taste or fine things.",
+        choices: [
+          "A beginner in any field.",
+          "One who avoids luxury.",
+          "An expert in matters of taste or fine things.",
+          "Someone who constantly changes opinion."
+        ]
       },
       {
-        definition: "A word meaning impossible to stop or prevent.",
-        answer: "Inexorable",
-        choices: ["Fleeting", "Inevitable", "Inexorable", "Evasive"]
+        word: "Inexorable",
+        correctDefinition: "Impossible to stop or prevent.",
+        choices: [
+          "Likely to be avoided easily.",
+          "Impossible to stop or prevent.",
+          "Very emotional or dramatic.",
+          "Barely noticeable."
+        ]
       }
     ];
 
@@ -80,7 +96,7 @@
 
     function loadQuestion() {
       const q = questions[currentQuestionIndex];
-      document.getElementById('question').textContent = q.definition;
+      document.getElementById('question').textContent = `What is the meaning of: "${q.word}"?`;
       const choicesDiv = document.getElementById('choices');
       choicesDiv.innerHTML = '';
 
@@ -93,7 +109,7 @@
     }
 
     function selectAnswer(choice) {
-      const correct = questions[currentQuestionIndex].answer;
+      const correct = questions[currentQuestionIndex].correctDefinition;
       if (choice === correct) score++;
 
       currentQuestionIndex++;
